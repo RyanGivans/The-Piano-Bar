@@ -1,1 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Piano Bar | Fayetteville, AR</title>
 
+  <style>
+    :root {
+      --black: #050505;
+      --deep: #120014;
+      --purple: #7a1cff;
+      --pink: #ff2fb3;
+      --gold: #ffd36a;
+      --white: #fff7ee;
+      --muted: #c8b8c9;
+      --glass: rgba(255,255,255,.08);
+      --border: rgba(255,255,255,.14);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255, 47, 179, .25), transparent 30%),
+        radial-gradient(circle at 80% 20%, rgba(122, 28, 255, .35), transparent 32%),
+        linear-gradient(135deg, #050505 0%, #180018 55%, #050505 100%);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .08;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      z-index: 999;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 20;
+      padding: 18px 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(5,5,5,.55);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .logo span {
+      display: block;
+      font-size: .7rem;
+      color: var(--gold);
+      letter-spacing: .3em;
+      margin-top: 5px;
+    }
+
+    nav {
+      display: flex;
+      gap: 24px;
+      font-size: .9rem;
+      color: var(--muted);
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      font-size: .82rem;
+      background: linear-gradient(135deg, var(--gold), #ff9f1c);
+      color: #13000d;
+      box-shadow: 0 0 30px rgba(255, 211, 106, .35);
+      transition: .25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 45px rgba(255, 211, 106, .55);
+    }
+
+    .btn.secondary {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid var(--border);
+      box-shadow: none;
+    }
+
+    .hero {
+      min-height: 100vh;
+      padding: 150px 7% 80px;
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      align-items: center;
+      gap: 50px;
+      position: relative;
+    }
+
+    .hero:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(5,5,5,.35), rgba(5,5,5,.75)),
+        url("https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1800&q=80");
+      background-size: cover;
+      background-position: center;
+      z-index: -2;
+      opacity: .75;
+    }
+
+    .hero:after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 240px;
+      background: linear-gradient(transparent, #050505);
+      z-index: -1;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      color: var(--gold);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .22em;
+      margin-bottom: 20px;
+      font-size: .8rem;
+    }
+
+    h1 {
+      font-size: clamp(3.6rem, 9vw, 8.8rem);
+      line-height: .86;
+      letter-spacing: -.08em;
+      text-transform: uppercase;
+      max-width: 850px;
+      text-shadow: 0 0 55px rgba(255,47,179,.45);
+    }
+
+    h1 span {
+      color: transparent;
+      -webkit-text-stroke: 2px var(--gold);
+      text-shadow: none;
+    }
+
+    .hero p {
+      margin-top: 28px;
+      max-width: 650px;
+      color: #eaddec;
+      font-size: 1.18rem;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .show-card {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+      backdrop-filter: blur(20px);
+      padding: 28px;
+      border-radius: 28px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .show-card:before {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: rgba(255,47,179,.3);
+      filter: blur(35px);
+      right: -90px;
+      top: -90px;
+    }
+
+    .show-card h2 {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .show-card ul {
+      list-style: none;
+      display: grid;
+      gap: 16px;
+      position: relative;
+    }
+
+    .show-card li {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .show-card strong {
+      color: var(--white);
+    }
+
+    section {
+      padding: 95px 7%;
+    }
+
+    .section-title {
+      max-width: 800px;
+      margin-bottom: 45px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(2.3rem, 5vw, 4.5rem);
+      line-height: .95;
+      letter-spacing: -.05em;
+      text-transform: uppercase;
+    }
+
+    .section-title p {
+      margin-top: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      min-height: 260px;
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      background: var(--glass);
+      padding: 28px;
+      transition: .25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      background: rgba(255,255,255,.12);
+    }
+
+    .card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 24px;
+    }
+
+    .card h3 {
+      font-size: 1.55rem;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .banner {
+      margin: 35px 7%;
+      padding: 48px;
+      border-radius: 34px;
+      background:
+        linear-gradient(135deg, rgba(255,211,106,.9), rgba(255,47,179,.78)),
+        url("https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=1600&q=80");
+      background-blend-mode: overlay;
+      background-size: cover;
+      background-position: center;
+      color: #120014;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .banner h2 {
+      font-size: clamp(2rem, 4vw, 4rem);
+      letter-spacing: -.05em;
+      text-transform: uppercase;
+      line-height: .95;
+    }
+
+    .banner p {
+      margin-top: 12px;
+      font-weight: 700;
+      max-width: 680px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 30px;
+      align-items: stretch;
+    }
+
+    .image-panel {
+      min-height: 520px;
+      border-radius: 34px;
+      background:
+        linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,.4)),
+        url("https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=1400&q=80");
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--border);
+    }
+
+    .info-panel {
+      border-radius: 34px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.08);
+      padding: 42px;
+    }
+
+    .info-row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-row span {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .78rem;
+      font-weight: 900;
+    }
+
+    .info-row p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .marquee {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 0;
+      background: rgba(255,255,255,.06);
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-block;
+      animation: scroll 22s linear infinite;
+      font-size: 1.2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--gold);
+    }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .final-cta {
+      text-align: center;
+      padding-bottom: 120px;
+    }
+
+    .final-cta h2 {
+      font-size: clamp(3rem, 7vw, 7rem);
+      text-transform: uppercase;
+      letter-spacing: -.07em;
+      line-height: .88;
+      margin-bottom: 24px;
+    }
+
+    .final-cta p {
+      max-width: 650px;
+      margin: 0 auto 32px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 1.08rem;
+    }
+
+    footer {
+      padding: 34px 7%;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      color: var(--muted);
+      font-size: .9rem;
+      background: #050505;
+    }
+
+    @media (max-width: 950px) {
+      header {
+        position: absolute;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 130px;
+      }
+
+      .cards,
+      .split,
+      .banner {
+        grid-template-columns: 1fr;
+      }
+
+      .banner {
+        margin: 25px 5%;
+        padding: 32px;
+      }
+
+      section {
+        padding: 75px 5%;
+      }
+
+      .hero {
+        padding-left: 5%;
+        padding-right: 5%;
+      }
+
+      .info-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="noise"></div>
+
+  <header>
+    <a href="#" class="logo">
+      The Piano Bar
+      <span>Fayetteville</span>
+    </a>
+
+    <nav>
+      <a href="#shows">Shows</a>
+      <a href="#events">Events</a>
+      <a href="#visit">Visit</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <a class="btn" href="RESERVATION_LINK_HERE">Reserve</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <span class="eyebrow">Dickson Street’s live music party</span>
+        <h1>Sing Loud. <span>Stay Late.</span></h1>
+        <p>
+          A high-energy dueling piano bar in the heart of Fayetteville, Arkansas.
+          Live music, crowd requests, cold drinks, karaoke nights, line dancing,
+          private events, and unforgettable nights out.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn" href="RESERVATION_LINK_HERE">Make a Reservation</a>
+          <a class="btn secondary" href="#events">Plan a Night Out</a>
+        </div>
+      </div>
+
+      <aside class="show-card">
+        <h2>Tonight at The Piano Bar</h2>
+        <ul>
+          <li><strong>Open</strong><span>Mon–Sat · 7 PM–2 AM</span></li>
+          <li><strong>Shows</strong><span>Start around 8 PM</span></li>
+          <li><strong>Karaoke</strong><span>Monday & Tuesday</span></li>
+          <li><strong>Line Dancing</strong><span>Wednesday</span></li>
+          <li><strong>Age</strong><span>18+ only</span></li>
+        </ul>
+      </aside>
+    </section>
+
+    <div class="marquee">
+      <div class="marquee-track">
+        Live Requests · Dueling Pianos · Karaoke Nights · Private Parties · Road Shows · Dickson Street · No Boring Nights ·
+        Live Requests · Dueling Pianos · Karaoke Nights · Private Parties · Road Shows · Dickson Street · No Boring Nights ·
+      </div>
+    </div>
+
+    <section id="shows">
+      <div class="section-title">
+        <h2>The show is built by the room.</h2>
+        <p>
+          Request your favorite song, sing along with the crowd, and watch the night
+          turn into something nobody could have planned.
+        </p>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="icon">🎹</div>
+          <h3>Dueling Pianos</h3>
+          <p>Two performers, one room full of requests, and a show that changes every night.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🎤</div>
+          <h3>Karaoke Nights</h3>
+          <p>Monday and Tuesday nights are made for grabbing the mic and bringing your friends.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🕺</div>
+          <h3>Line Dancing</h3>
+          <p>Wednesday nights bring the dance floor energy with a local crowd and late-night fun.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="banner" id="events">
+      <div>
+        <h2>Private party? Bring the bar to you.</h2>
+        <p>
+          From birthdays and bachelor parties to corporate events and road shows,
+          The Piano Bar brings the entertainment.
+        </p>
+      </div>
+      <a class="btn secondary" href="mailto:info@thepianobarnwa.com">Ask About Events</a>
+    </div>
+
+    <section id="visit">
+      <div class="split">
+        <div class="image-panel"></div>
+
+        <div class="info-panel">
+          <div class="section-title">
+            <h2>Find us on Dickson.</h2>
+            <p>Come early, stay late, and make a night of it in downtown Fayetteville.</p>
+          </div>
+
+          <div class="info-row">
+            <span>Address</span>
+            <p>230 W. Dickson Street<br>Fayetteville, AR 72701</p>
+          </div>
+
+          <div class="info-row">
+            <span>Hours</span>
+            <p>Monday–Saturday · 7 PM–2 AM<br>Show times may vary for special events.</p>
+          </div>
+
+          <div class="info-row">
+            <span>Phone</span>
+            <p><a href="tel:4794437700">479-443-7700</a></p>
+          </div>
+
+          <div class="info-row">
+            <span>Social</span>
+            <p>
+              <a href="FACEBOOK_LINK_HERE">Facebook</a> ·
+              <a href="INSTAGRAM_LINK_HERE">Instagram</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta" id="contact">
+      <h2>Your song is next.</h2>
+      <p>
+        Reserve your spot, bring your people, and get ready for a Fayetteville night
+        that does not feel like anywhere else.
+      </p>
+      <a class="btn" href="RESERVATION_LINK_HERE">Make a Reservation</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> The Piano Bar · Fayetteville, Arkansas</p>
+    <p>18+ only · Please check social media for current events and schedule updates.</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const cards = document.querySelectorAll(".card, .show-card, .info-panel, .banner");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.animate(
+            [
+              { opacity: 0, transform: "translateY(28px)" },
+              { opacity: 1, transform: "translateY(0)" }
+            ],
+            {
+              duration: 700,
+              easing: "ease-out",
+              fill: "forwards"
+            }
+          );
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    cards.forEach((card) => observer.observe(card));
+  </script>
+</body>
+</html>
