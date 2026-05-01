@@ -1,1 +1,676 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Piano Bar | Fayetteville, AR</title>
+
+  <style>
+    :root {
+      --black: #030303;
+      --cream: #fff1d8;
+      --gold: #ffd166;
+      --pink: #ff2fb3;
+      --purple: #7b2cff;
+      --blue: #00e5ff;
+      --muted: #b9aabc;
+      --border: rgba(255,255,255,.16);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #030303;
+      color: var(--cream);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: calc(100% - 110px);
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: calc(100% - 110px);
+      z-index: 50;
+      padding: 20px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(3,3,3,.68);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      line-height: 1;
+    }
+
+    .logo span {
+      display: block;
+      color: var(--gold);
+      font-size: .68rem;
+      letter-spacing: .25em;
+      margin-top: 5px;
+    }
+
+    .top-links {
+      display: flex;
+      gap: 22px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .top-links a:hover {
+      color: var(--gold);
+    }
+
+    .reserve-btn {
+      padding: 13px 22px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--gold), #ff9f1c);
+      color: #160010;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: .78rem;
+      letter-spacing: .06em;
+      box-shadow: 0 0 35px rgba(255,209,102,.42);
+    }
+
+    .hero {
+      min-height: 100vh;
+      padding: 150px 7% 80px;
+      display: flex;
+      align-items: center;
+      background:
+        linear-gradient(90deg, rgba(3,3,3,.95), rgba(3,3,3,.48), rgba(3,3,3,.96)),
+        radial-gradient(circle at 25% 35%, rgba(255,47,179,.32), transparent 34%),
+        radial-gradient(circle at 68% 22%, rgba(0,229,255,.2), transparent 28%),
+        url("https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1800&q=80");
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero:after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 220px;
+      background: linear-gradient(transparent, #030303);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 980px;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .25em;
+      font-size: .8rem;
+      font-weight: 900;
+      margin-bottom: 24px;
+      display: inline-block;
+    }
+
+    h1 {
+      font-size: clamp(4rem, 10vw, 10rem);
+      line-height: .82;
+      text-transform: uppercase;
+      letter-spacing: -.09em;
+      max-width: 1050px;
+      text-shadow: 0 0 70px rgba(255,47,179,.5);
+    }
+
+    h1 span {
+      color: transparent;
+      -webkit-text-stroke: 2px var(--gold);
+      text-shadow: none;
+      display: block;
+    }
+
+    .hero p {
+      margin-top: 28px;
+      max-width: 620px;
+      font-size: 1.18rem;
+      line-height: 1.75;
+      color: #e7d8e9;
+    }
+
+    .hero-actions {
+      margin-top: 36px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      padding: 15px 25px;
+      border-radius: 999px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      font-size: .82rem;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.08);
+      color: var(--cream);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--gold), #ff9f1c);
+      color: #160010;
+      box-shadow: 0 0 35px rgba(255,209,102,.42);
+      border: none;
+    }
+
+    section {
+      padding: 105px 7%;
+    }
+
+    .section-title {
+      max-width: 850px;
+      margin-bottom: 38px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(2.8rem, 6vw, 6rem);
+      line-height: .9;
+      letter-spacing: -.07em;
+      text-transform: uppercase;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1.08rem;
+      margin-top: 20px;
+    }
+
+    .poster {
+      min-height: 560px;
+      border-radius: 38px;
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(to top, rgba(3,3,3,.96), rgba(3,3,3,.2)),
+        url("https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=1600&q=80");
+      background-size: cover;
+      background-position: center;
+      padding: 42px;
+      display: flex;
+      align-items: flex-end;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .poster:before {
+      content: "REQUESTS • SINGALONGS • DUELING PIANOS";
+      position: absolute;
+      top: 35px;
+      left: 35px;
+      color: var(--gold);
+      font-weight: 900;
+      letter-spacing: .18em;
+      font-size: .78rem;
+    }
+
+    .poster h3 {
+      font-size: clamp(2.6rem, 7vw, 7rem);
+      line-height: .82;
+      letter-spacing: -.08em;
+      text-transform: uppercase;
+      max-width: 900px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .panel {
+      border: 1px solid var(--border);
+      border-radius: 34px;
+      padding: 36px;
+      background:
+        radial-gradient(circle at top right, rgba(255,47,179,.18), transparent 38%),
+        rgba(255,255,255,.06);
+      min-height: 360px;
+    }
+
+    .panel h3 {
+      font-size: 2.3rem;
+      line-height: .95;
+      letter-spacing: -.04em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .panel p,
+    .panel li {
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .panel ul {
+      margin-top: 18px;
+      padding-left: 20px;
+    }
+
+    .big-cta {
+      min-height: 70vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background:
+        radial-gradient(circle at center, rgba(123,44,255,.25), transparent 38%),
+        linear-gradient(#030303, #0b0012);
+    }
+
+    .big-cta h2 {
+      font-size: clamp(3.5rem, 9vw, 9rem);
+      line-height: .82;
+      letter-spacing: -.09em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .big-cta p {
+      color: var(--muted);
+      max-width: 650px;
+      line-height: 1.75;
+      margin: 0 auto 32px;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      width: calc(100% - 110px);
+      padding: 34px 7%;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      background: #030303;
+    }
+
+    /* SIDE PIANO NAV */
+    .side-piano {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 110px;
+      height: 100vh;
+      z-index: 200;
+      background: #050505;
+      border-left: 1px solid rgba(255,255,255,.2);
+      display: flex;
+      flex-direction: column;
+      box-shadow: -18px 0 60px rgba(0,0,0,.55);
+    }
+
+    .piano-label {
+      height: 74px;
+      display: grid;
+      place-items: center;
+      color: var(--gold);
+      font-size: .68rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,.16);
+      padding: 8px;
+    }
+
+    .piano-keys {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .piano-key {
+      position: relative;
+      flex: 1;
+      border: none;
+      border-bottom: 1px solid #111;
+      background: linear-gradient(90deg, #fefefe, #d6d6d6);
+      color: #111;
+      font-weight: 900;
+      cursor: pointer;
+      transition: .12s ease;
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .piano-key:hover,
+    .piano-key.active {
+      background: linear-gradient(90deg, var(--gold), #fff3c0);
+      transform: translateX(-7px);
+      box-shadow: -12px 0 30px rgba(255,209,102,.35);
+    }
+
+    .piano-key.black {
+      background: #050505;
+      color: var(--cream);
+      width: 72%;
+      margin-left: auto;
+      z-index: 3;
+      border-bottom: 1px solid #333;
+    }
+
+    .piano-key.black:hover,
+    .piano-key.black.active {
+      background: linear-gradient(90deg, #120014, var(--pink));
+      color: #fff;
+      transform: translateX(-7px);
+      box-shadow: -12px 0 30px rgba(255,47,179,.45);
+    }
+
+    .piano-key span {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      display: inline-block;
+    }
+
+    .mobile-note {
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      .page,
+      header,
+      footer {
+        width: 100%;
+      }
+
+      header {
+        position: absolute;
+      }
+
+      .top-links {
+        display: none;
+      }
+
+      .side-piano {
+        display: none;
+      }
+
+      .mobile-note {
+        display: block;
+        padding: 14px 5%;
+        background: linear-gradient(90deg, var(--pink), var(--purple));
+        color: white;
+        font-weight: 900;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: .76rem;
+        letter-spacing: .08em;
+      }
+
+      section {
+        padding: 80px 5%;
+      }
+
+      .hero {
+        padding-left: 5%;
+        padding-right: 5%;
+      }
+
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <aside class="side-piano" aria-label="Interactive piano navigation">
+    <div class="piano-label">Play<br>The<br>Site</div>
+
+    <div class="piano-keys">
+      <button class="piano-key nav-key" data-note="261.63" data-target="#top"><span>Top</span></button>
+      <button class="piano-key black" data-note="277.18"><span></span></button>
+      <button class="piano-key nav-key" data-note="293.66" data-target="#show"><span>Show</span></button>
+      <button class="piano-key black" data-note="311.13"><span></span></button>
+      <button class="piano-key nav-key" data-note="329.63" data-target="#nights"><span>Nights</span></button>
+      <button class="piano-key" data-note="349.23"><span></span></button>
+      <button class="piano-key black" data-note="369.99"><span></span></button>
+      <button class="piano-key nav-key" data-note="392.00" data-target="#events"><span>Events</span></button>
+      <button class="piano-key black" data-note="415.30"><span></span></button>
+      <button class="piano-key nav-key" data-note="440.00" data-target="#visit"><span>Visit</span></button>
+      <button class="piano-key black" data-note="466.16"><span></span></button>
+      <button class="piano-key nav-key" data-note="523.25" data-target="#reserve"><span>Reserve</span></button>
+    </div>
+  </aside>
+
+  <div class="page" id="top">
+    <header>
+      <a href="#top" class="logo">
+        The Piano Bar
+        <span>Fayetteville</span>
+      </a>
+
+      <nav class="top-links">
+        <a href="#show">Show</a>
+        <a href="#nights">Nights</a>
+        <a href="#events">Events</a>
+        <a href="#visit">Visit</a>
+      </nav>
+
+      <a href="#reserve" class="reserve-btn">Reserve</a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <span class="eyebrow">Dickson Street · Fayetteville, Arkansas</span>
+
+          <h1>
+            Don’t just go out.
+            <span>Join the show.</span>
+          </h1>
+
+          <p>
+            A high-energy dueling piano bar where the crowd controls the night.
+            Request a song, sing it loud, and make Fayetteville feel like a live concert.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#reserve" class="btn primary">Reserve Tonight</a>
+            <a href="#show" class="btn">See the Experience</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="mobile-note">
+        Desktop version includes playable piano-key navigation
+      </div>
+
+      <section id="show">
+        <div class="section-title">
+          <h2>The website should feel like the room.</h2>
+          <p>
+            Loud, cinematic, a little unexpected, and built around the thing that makes
+            The Piano Bar special: the audience is part of the performance.
+          </p>
+        </div>
+
+        <div class="poster">
+          <h3>Two pianos. One crowd. Every song is fair game.</h3>
+        </div>
+      </section>
+
+      <section id="nights">
+        <div class="section-title">
+          <h2>Every night has a reason.</h2>
+          <p>
+            Instead of basic tiles, this section uses show-style panels to make each night
+            feel like part of the lineup.
+          </p>
+        </div>
+
+        <div class="split">
+          <div class="panel">
+            <h3>Karaoke nights</h3>
+            <p>
+              Monday and Tuesday are for the people who secretly believe they should be famous.
+              Bring the group. Pick the song. Take the mic.
+            </p>
+          </div>
+
+          <div class="panel">
+            <h3>Line dancing</h3>
+            <p>
+              Wednesday brings a different kind of movement to Dickson Street with a social,
+              easy-to-join dance floor built for groups.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="events">
+        <div class="section-title">
+          <h2>Private events that don’t feel private.</h2>
+          <p>
+            Birthday parties, bachelorette weekends, corporate nights, holiday parties,
+            and road shows with actual energy.
+          </p>
+        </div>
+
+        <div class="split">
+          <div class="panel">
+            <h3>Bring your group here</h3>
+            <ul>
+              <li>Birthdays</li>
+              <li>College groups</li>
+              <li>Company parties</li>
+              <li>Bachelor and bachelorette nights</li>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <h3>Or bring the show to you</h3>
+            <p>
+              The Piano Bar can be positioned as more than a bar. It can be entertainment
+              for events, venues, fundraisers, and private celebrations.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="visit">
+        <div class="section-title">
+          <h2>Find us on Dickson.</h2>
+          <p>
+            230 W. Dickson Street, Fayetteville, Arkansas. Open Monday through Saturday,
+            7 PM to 2 AM. 18+ only.
+          </p>
+        </div>
+
+        <div class="poster" style="background:
+          linear-gradient(to top, rgba(3,3,3,.96), rgba(3,3,3,.22)),
+          url('https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=1600&q=80');
+          background-size: cover;
+          background-position: center;">
+          <h3>Dickson Street after dark starts at the keys.</h3>
+        </div>
+      </section>
+
+      <section class="big-cta" id="reserve">
+        <div>
+          <h2>Your song is next.</h2>
+          <p>
+            Reserve the table. Bring the group. Request the song.
+            Let the night become the story.
+          </p>
+          <a href="https://thepianobarnwa.com/" class="btn primary" target="_blank">
+            Reserve Tonight
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> The Piano Bar · Fayetteville, AR</p>
+      <p>Dueling pianos · Karaoke · Line dancing · Private events</p>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    let audioContext;
+
+    function playNote(frequency) {
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+
+      oscillator.type = "sine";
+      oscillator.frequency.value = frequency;
+
+      gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.22, audioContext.currentTime + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.38);
+
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+
+      oscillator.start();
+      oscillator.stop(audioContext.currentTime + 0.4);
+    }
+
+    document.querySelectorAll(".piano-key").forEach((key) => {
+      key.addEventListener("click", () => {
+        const note = Number(key.dataset.note);
+        playNote(note);
+
+        key.classList.add("active");
+        setTimeout(() => key.classList.remove("active"), 150);
+
+        const target = key.dataset.target;
+        if (target) {
+          document.querySelector(target).scrollIntoView({
+            behavior: "smooth"
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
