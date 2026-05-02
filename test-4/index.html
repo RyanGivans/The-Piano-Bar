@@ -1043,6 +1043,195 @@
         font-size: clamp(3rem, 18vw, 5rem);
       }
     }
+    .reservation-section {
+  position: relative;
+  padding: clamp(80px, 10vw, 150px) clamp(18px, 5vw, 72px);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255, 47, 179, .22), transparent 30%),
+    radial-gradient(circle at 85% 10%, rgba(52, 230, 255, .18), transparent 28%),
+    linear-gradient(135deg, #050008, #120018);
+}
+
+.reservation-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 49%, rgba(255,255,255,.05) 50%, transparent 51%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 1px, transparent 1px 70px);
+  opacity: .35;
+  pointer-events: none;
+}
+
+.reservation-wrap {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: .85fr 1.15fr;
+  gap: clamp(28px, 5vw, 70px);
+  align-items: start;
+}
+
+.reservation-kicker {
+  color: var(--gold);
+  font-weight: 950;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-size: .78rem;
+  margin-bottom: 14px;
+}
+
+.reservation-intro h2 {
+  font-size: clamp(2.7rem, 6vw, 6.5rem);
+  line-height: .9;
+  letter-spacing: -.06em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+.reservation-intro p {
+  color: var(--muted);
+  font-size: 1.12rem;
+  line-height: 1.75;
+  max-width: 560px;
+}
+
+.reservation-warning {
+  margin-top: 28px;
+  padding: 22px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 211, 107, .35);
+  background: rgba(255, 211, 107, .09);
+  color: var(--cream);
+  font-weight: 800;
+}
+
+.reservation-warning span {
+  color: var(--gold);
+}
+
+.reservation-form {
+  padding: clamp(24px, 4vw, 46px);
+  border-radius: 36px;
+  border: 1px solid rgba(255,255,255,.16);
+  background:
+    radial-gradient(circle at 90% 0%, rgba(255,211,107,.14), transparent 26%),
+    rgba(255,255,255,.075);
+  box-shadow: 0 35px 100px rgba(0,0,0,.5);
+  backdrop-filter: blur(18px);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.form-grid label,
+.rules-list label {
+  display: grid;
+  gap: 8px;
+  color: var(--cream);
+  font-weight: 900;
+}
+
+.form-grid label:nth-child(6) {
+  grid-column: 1 / -1;
+}
+
+.form-grid input,
+.form-grid textarea {
+  width: 100%;
+  padding: 15px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(0,0,0,.34);
+  color: var(--cream);
+  font: inherit;
+  outline: none;
+}
+
+.form-grid input:focus,
+.form-grid textarea:focus {
+  border-color: rgba(255,211,107,.65);
+  box-shadow: 0 0 0 4px rgba(255,211,107,.12);
+}
+
+.rules-card {
+  margin-top: 24px;
+  padding: 24px;
+  border-radius: 26px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.26);
+}
+
+.rules-card h3 {
+  font-size: 1.7rem;
+  margin-bottom: 6px;
+}
+
+.rules-card p {
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+.rules-list {
+  display: grid;
+  gap: 12px;
+  max-height: 360px;
+  overflow: auto;
+  padding-right: 8px;
+}
+
+.rules-list label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  line-height: 1.45;
+  color: #eadff0;
+  font-weight: 750;
+}
+
+.rules-list input {
+  margin-top: 4px;
+  accent-color: #ffd36b;
+}
+
+.reservation-submit {
+  width: 100%;
+  margin-top: 24px;
+  min-height: 62px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--gold), #ff914d 45%, var(--hot));
+  color: #120014;
+  font-weight: 1000;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  cursor: pointer;
+  box-shadow: 0 0 50px rgba(255,47,179,.35);
+  transition: .25s ease;
+}
+
+.reservation-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 75px rgba(255,47,179,.55);
+}
+
+.reservation-submit span {
+  margin-left: 8px;
+}
+
+@media (max-width: 900px) {
+  .reservation-wrap,
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid label:nth-child(6) {
+    grid-column: auto;
+  }
+}
   </style>
 </head>
 
@@ -1243,7 +1432,83 @@
         <div class="song reveal">Bohemian Rhapsody<small>Queen</small></div>
       </div>
     </section>
+<section class="reservation-section" id="reserve">
+  <div class="reservation-bg"></div>
 
+  <div class="reservation-wrap">
+    <div class="reservation-intro">
+      <p class="reservation-kicker">Reservations</p>
+      <h2>Lock in your night at The Piano Bar.</h2>
+      <p>
+        Fill this out and we’ll follow up with confirmation. Submitting this form does not guarantee a reservation until confirmed.
+      </p>
+
+      <div class="reservation-warning">
+        <strong>Important:</strong> Tables are only held until <span>7:30 PM</span>. No exceptions.
+      </div>
+    </div>
+
+    <form class="reservation-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="form-grid">
+        <label>
+          Name
+          <input type="text" name="name" required>
+        </label>
+
+        <label>
+          Email
+          <input type="email" name="email" required>
+        </label>
+
+        <label>
+          Phone Number
+          <input type="tel" name="phone" required>
+        </label>
+
+        <label>
+          Number of Guests
+          <input type="number" name="guest_count" min="1" required>
+        </label>
+
+        <label>
+          Reservation Date
+          <input type="date" name="reservation_date" required>
+        </label>
+
+        <label>
+          Special Requests
+          <textarea name="special_requests" rows="4" placeholder="Birthday, bachelorette party, seating request, etc."></textarea>
+        </label>
+      </div>
+
+      <div class="rules-card">
+        <h3>Before You Submit</h3>
+        <p>Please read and agree to the reservation rules.</p>
+
+        <div class="rules-list">
+          <label><input type="checkbox" required> Shows are 18 and up.</label>
+          <label><input type="checkbox" required> No reservations will be taken after 6 PM day-of.</label>
+          <label><input type="checkbox" required> Tables are held from open until 7:30 PM only.</label>
+          <label><input type="checkbox" required> Arriving at least 30 minutes before showtime is recommended.</label>
+          <label><input type="checkbox" required> There is no charge for reserving a table.</label>
+          <label><input type="checkbox" required> Tables will only be held until 7:30 PM. No exceptions.</label>
+          <label><input type="checkbox" required> A valid email is required for confirmation.</label>
+          <label><input type="checkbox" required> Operating hours may change due to special events.</label>
+          <label><input type="checkbox" required> Reservations are subject to cancellation or change at any time.</label>
+          <label><input type="checkbox" required> Submitting this form does not guarantee a reservation.</label>
+          <label><input type="checkbox" required> Confirmation may take up to 72 hours unless it is day-of.</label>
+          <label><input type="checkbox" required> Specific seats or sections cannot be guaranteed.</label>
+          <label><input type="checkbox" required> Most of the party must arrive to maintain the reservation.</label>
+        </div>
+      </div>
+
+      <button class="reservation-submit" type="submit">
+        Request Reservation
+        <span>→</span>
+      </button>
+    </form>
+  </div>
+</section>
     <section id="events">
       <div class="private-events reveal">
         <div class="section-head" style="margin-bottom:0;">
