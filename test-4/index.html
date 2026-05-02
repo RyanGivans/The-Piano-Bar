@@ -758,7 +758,209 @@
       opacity: 1;
       transform: translateY(0);
     }
+.food-section {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(70px, 9vw, 130px) clamp(18px, 5vw, 72px);
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255, 211, 107, .16), transparent 28%),
+    radial-gradient(circle at 90% 15%, rgba(255, 47, 179, .14), transparent 26%),
+    linear-gradient(180deg, rgba(255,255,255,.025), rgba(0,0,0,.18));
+}
 
+.food-bg-glow {
+  position: absolute;
+  inset: 12% -10% auto auto;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 211, 107, .24), transparent 68%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.food-category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 30px 0 36px;
+}
+
+.food-category-tabs a {
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.07);
+  color: var(--cream);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .75rem;
+}
+
+.food-category-tabs a:hover {
+  border-color: rgba(255,211,107,.55);
+  color: var(--gold);
+}
+
+.food-feature {
+  display: grid;
+  grid-template-columns: 1fr .85fr;
+  gap: clamp(24px, 5vw, 70px);
+  align-items: center;
+  margin-bottom: 34px;
+  padding: clamp(28px, 5vw, 58px);
+  border-radius: 38px;
+  border: 1px solid rgba(255,211,107,.28);
+  background:
+    radial-gradient(circle at 88% 20%, rgba(255,211,107,.18), transparent 28%),
+    linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.025));
+  box-shadow: 0 30px 100px rgba(0,0,0,.45);
+}
+
+.food-feature span {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: var(--gold);
+  font-weight: 950;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  font-size: .76rem;
+}
+
+.food-feature h3 {
+  font-size: clamp(2.4rem, 5vw, 5rem);
+  line-height: .94;
+  letter-spacing: -.05em;
+  margin-bottom: 18px;
+}
+
+.food-feature p {
+  max-width: 620px;
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.75;
+  margin-bottom: 28px;
+}
+
+.food-feature-art {
+  position: relative;
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+}
+
+.food-feature-art img {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 460px);
+  aspect-ratio: 1.15 / 1;
+  object-fit: cover;
+  border-radius: 32px;
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 34px 90px rgba(0,0,0,.55);
+  transform: rotate(2deg);
+}
+
+.plate-glow {
+  position: absolute;
+  width: 82%;
+  height: 82%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,47,179,.26), transparent 68%);
+  filter: blur(14px);
+}
+
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.food-card {
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  gap: 18px;
+  align-items: center;
+  min-height: 190px;
+  padding: 18px;
+  border-radius: 28px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.065);
+  transition: .25s ease;
+}
+
+.food-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255,211,107,.5);
+  background: rgba(255,255,255,.09);
+  box-shadow: 0 24px 70px rgba(0,0,0,.35);
+}
+
+.food-card img {
+  width: 132px;
+  height: 132px;
+  object-fit: cover;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,.16);
+}
+
+.food-card h3 {
+  font-size: 1.35rem;
+  line-height: 1.08;
+  margin-bottom: 8px;
+}
+
+.food-card p {
+  color: var(--muted);
+  line-height: 1.45;
+  margin-bottom: 10px;
+}
+
+.food-card strong {
+  display: block;
+  color: var(--gold);
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+}
+
+.food-card a {
+  display: inline-flex;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: rgba(255,211,107,.12);
+  color: var(--gold);
+  border: 1px solid rgba(255,211,107,.3);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .72rem;
+}
+
+@media (max-width: 1100px) {
+  .food-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .food-feature {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .food-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .food-card {
+    grid-template-columns: 104px 1fr;
+  }
+
+  .food-card img {
+    width: 104px;
+    height: 104px;
+  }
+}
     @media (max-width: 980px) {
       .desktop-nav,
       .piano-nav {
@@ -863,7 +1065,8 @@
       <a href="#nights">Nights</a>
       <a href="#requests">Requests</a>
       <a href="#events">Private Events</a>
-      <a href="#visit">Visit</a>
+<a href="#food">Food</a>
+<a href="#visit">Visit</a>
     </nav>
 
     <div class="top-actions">
@@ -920,7 +1123,7 @@
         <a class="key black" href="#nights">Nights</a>
         <a class="key" href="#requests">Songs</a>
         <a class="key black" href="#events">Events</a>
-        <a class="key" href="#visit">Visit</a>
+        <a class="key" href="#food">Food</a>
         <a class="key black" href="tel:4794437700">Call</a>
         <a class="key" href="https://thepianobarnwa.com/reservations" target="_blank" rel="noopener">Reserve</a>
       </nav>
@@ -1067,7 +1270,117 @@
         </div>
       </div>
     </section>
+<section class="food-section" id="food">
+  <div class="food-bg-glow"></div>
 
+  <div class="section-head reveal">
+    <div class="section-kicker">The Piano Bar Kitchen</div>
+    <h2>Food that keeps the night going.</h2>
+    <p>
+      Grab shareables, late-night bites, and bar favorites without digging through a plain ordering page.
+      Browse the highlights here, then order securely through Square.
+    </p>
+
+    <div class="hero-actions">
+      <a class="btn btn-primary"
+         href="https://my-site-106849-107366.square.site/?location=11ead28cd57e2bac9beeac1f6bbba82c&customer_seat_id=11f00b8f3f55442289fe063af5bdcbf8"
+         target="_blank" rel="noopener">
+        Order Online
+      </a>
+      <a class="btn" href="#food-menu-preview">See Favorites</a>
+    </div>
+  </div>
+
+  <div class="food-category-tabs">
+    <a href="#appetizers">Appetizers</a>
+    <a href="#late-night">Late Night</a>
+    <a href="#shareables">Shareables</a>
+    <a href="#favorites">Fan Favorites</a>
+  </div>
+
+  <div class="food-feature reveal">
+    <div>
+      <span>Featured Bite</span>
+      <h3>Take It Cheesy Fries</h3>
+      <p>
+        Seasoned waffle fries loaded with melted jack and cheddar cheese, bacon bits,
+        queso, and chives. Built for sharing — or not.
+      </p>
+      <a class="btn btn-primary"
+         href="https://my-site-106849-107366.square.site/?location=11ead28cd57e2bac9beeac1f6bbba82c&customer_seat_id=11f00b8f3f55442289fe063af5bdcbf8"
+         target="_blank" rel="noopener">
+        Order on Square
+      </a>
+    </div>
+
+    <div class="food-feature-art">
+      <div class="plate-glow"></div>
+      <img src="images/cheesy-fries.jpg" alt="Loaded cheesy fries">
+    </div>
+  </div>
+
+  <div class="food-grid" id="food-menu-preview">
+    <article class="food-card reveal" id="appetizers">
+      <img src="images/waffle-fries.jpg" alt="Seasoned waffle fries">
+      <div>
+        <h3>Seasoned Waffle Fries</h3>
+        <p>Crispy, golden, and perfect for the table.</p>
+        <strong>$3.49</strong>
+        <a href="https://my-site-106849-107366.square.site/?location=11ead28cd57e2bac9beeac1f6bbba82c&customer_seat_id=11f00b8f3f55442289fe063af5bdcbf8" target="_blank" rel="noopener">Order</a>
+      </div>
+    </article>
+
+    <article class="food-card reveal">
+      <img src="images/onion-rings.jpg" alt="Onion rings">
+      <div>
+        <h3>Onion Rings</h3>
+        <p>Crunchy, classic, and made for dipping.</p>
+        <strong>$3.49</strong>
+        <a href="https://my-site-106849-107366.square.site/?location=11ead28cd57e2bac9beeac1f6bbba82c&customer_seat_id=11f00b8f3f55442289fe063af5bdcbf8" target="_blank" rel="noopener">Order</a>
+      </div>
+    </article>
+
+    <article class="food-card reveal" id="shareables">
+      <img src="images/chips-queso.jpg" alt="Chips and queso">
+      <div>
+        <h3>Livin’ la Chips & Queso</h3>
+        <p>Queso blanco with fresh white corn tortilla chips.</p>
+        <strong>$7.49+</strong>
+        <a href="https://my-site-106849-107366.square.site/?location=11ead28cd57e2bac9beeac1f6bbba82c&customer_seat_id=11f00b8f3f55442289fe063af5bdcbf8" target="_blank" rel="noopener">Order</a>
+      </div>
+    </article>
+
+    <article class="food-card reveal" id="favorites">
+      <img src="images/pretzel.jpg" alt="Soft pretzel">
+      <div>
+        <h3>Twist & Shout Pretzel</h3>
+        <p>Buttered sweet dough pretzel with salt or cinnamon sugar.</p>
+        <strong>$5.49</strong>
+        <a href="https://my-site-106849-107366.square.site/?location=11ead28cd57e2bac9beeac1f6bbba82c&customer_seat_id=11f00b8f3f55442289fe063af5bdcbf8" target="_blank" rel="noopener">Order</a>
+      </div>
+    </article>
+
+    <article class="food-card reveal">
+      <img src="images/free-bird-basket.jpg" alt="Chicken bites and fries">
+      <div>
+        <h3>Free Bird Basket</h3>
+        <p>Crispy chicken bites, waffle fries, and dipping sauce.</p>
+        <strong>$10.49+</strong>
+        <a href="https://my-site-106849-107366.square.site/?location=11ead28cd57e2bac9beeac1f6bbba82c&customer_seat_id=11f00b8f3f55442289fe063af5bdcbf8" target="_blank" rel="noopener">Order</a>
+      </div>
+    </article>
+
+    <article class="food-card reveal" id="late-night">
+      <img src="images/hot-dog.jpg" alt="Hot dog">
+      <div>
+        <h3>HOT TO GO!</h3>
+        <p>Quarter-pound all-beef frank on a toasted roll.</p>
+        <strong>$6.99</strong>
+        <a href="https://my-site-106849-107366.square.site/?location=11ead28cd57e2bac9beeac1f6bbba82c&customer_seat_id=11f00b8f3f55442289fe063af5bdcbf8" target="_blank" rel="noopener">Order</a>
+      </div>
+    </article>
+  </div>
+</section>
     <section id="visit">
       <div class="section-head reveal">
         <div class="section-kicker">Visit</div>
